@@ -51,8 +51,37 @@ const audio = {
     osc.start(t);
     osc.stop(t + duration);
   },
+  fart(duration = 0.22, startFreq = 180, endFreq = 52, volume = 0.08) {
+    if (!this.enabled) return;
+    this.ensure();
+    const t = this.ctx.currentTime;
+
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    const lp = this.ctx.createBiquadFilter();
+
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(startFreq, t);
+    osc.frequency.exponentialRampToValueAtTime(endFreq, t + duration);
+
+    lp.type = 'lowpass';
+    lp.frequency.setValueAtTime(900, t);
+    lp.frequency.exponentialRampToValueAtTime(220, t + duration);
+
+    gain.gain.setValueAtTime(volume, t);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + duration);
+
+    osc.connect(lp);
+    lp.connect(gain);
+    gain.connect(this.ctx.destination);
+
+    osc.start(t);
+    osc.stop(t + duration);
+  },
   lineClear(cleared) {
-    [660, 740, 880, 1040].slice(0, cleared).forEach((f, i) => setTimeout(() => this.beep(f, 0.07, 'triangle', 0.05), i * 40));
+    for (let i = 0; i < cleared; i++) {
+      setTimeout(() => this.fart(0.18 + i * 0.03, 180 - i * 10, 56 - i * 3, 0.07), i * 70);
+    }
   },
   gameOver() {
     [380, 280, 200].forEach((f, i) => setTimeout(() => this.beep(f, 0.15, 'sawtooth', 0.06), i * 120));
