@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tetris Clásico</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="game">
+        <canvas id="board" width="300" height="600" aria-label="Tablero de Tetris"></canvas>
+      </section>
+
+      <aside class="panel">
+        <h1>Tetris</h1>
+        <p class="hint">Controles: ◀ ▶ mover · ▲ rotar · ▼ bajar · Espacio: caída rápida · P: pausa</p>
+
+        <div class="stats">
+          <div><span>Puntaje</span><strong id="score">0</strong></div>
+          <div><span>Nivel</span><strong id="level">1</strong></div>
+          <div><span>Líneas</span><strong id="lines">0</strong></div>
+        </div>
+
+        <div class="next-wrap">
+          <span>Siguiente</span>
+          <canvas id="next" width="120" height="120" aria-label="Siguiente pieza"></canvas>
+        </div>
+
+        <div class="actions">
+          <button id="restart">Reiniciar</button>
+          <button id="soundToggle" class="ghost">🔊 Sonido: ON</button>
+        </div>
+      </aside>
+    </main>
+
+    <section class="touch" aria-label="Controles táctiles">
+      <button data-action="left">◀</button>
+      <button data-action="rotate">⟳</button>
+      <button data-action="right">▶</button>
+      <button data-action="down">▼</button>
+      <button data-action="drop">⤓</button>
+      <button data-action="pause">⏯</button>
+    </section>
+
+    <div id="overlay" class="overlay hidden" role="status" aria-live="polite">
+      <div class="overlay-card">
+        <h2 id="overlayTitle">Pausa</h2>
+        <p id="overlayText">Pulsa P para continuar</p>
+        <p id="overlayScore" class="overlay-score"></p>
+        <button id="overlayRestart" class="hidden">Jugar otra vez</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
