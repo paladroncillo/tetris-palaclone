@@ -10,6 +10,7 @@ body {
   min-height: 100vh;
   display: grid;
   place-items: center;
+  padding-bottom: 170px;
   background: radial-gradient(circle at 20% 20%, #1a1f38, var(--bg));
   color: var(--text);
   font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
@@ -78,10 +79,21 @@ button.ghost {
   border-color: #2a3768;
 }
 .touch {
-  margin: 0 1rem 1rem;
+  position: fixed;
+  left: 50%;
+  bottom: max(10px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(460px, calc(100vw - 1rem));
   display: grid;
-  grid-template-columns: repeat(6, minmax(48px, 68px));
-  gap: .5rem;
+  grid-template-columns: repeat(6, 1fr);
+  gap: .45rem;
+  margin: 0;
+  padding: .55rem;
+  background: rgba(8, 12, 28, 0.5);
+  border: 1px solid rgba(80, 100, 170, 0.45);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  z-index: 20;
 }
 .touch button {
   font-size: 1.2rem;
@@ -124,10 +136,7 @@ button.ghost {
 }
 .hidden { display: none; }
 @media (max-width: 760px) {
-  body {
-    align-items: start;
-    padding-bottom: 170px;
-  }
+  body { align-items: start; }
 
   .wrap {
     grid-template-columns: 1fr;
@@ -138,23 +147,6 @@ button.ghost {
   }
 
   .panel { width: 100%; }
-
-  .touch {
-    position: fixed;
-    left: 50%;
-    bottom: max(10px, env(safe-area-inset-bottom));
-    transform: translateX(-50%);
-    width: min(460px, calc(100vw - 1rem));
-    grid-template-columns: repeat(6, 1fr);
-    gap: .45rem;
-    margin: 0;
-    padding: .55rem;
-    background: rgba(8, 12, 28, 0.5);
-    border: 1px solid rgba(80, 100, 170, 0.45);
-    border-radius: 16px;
-    backdrop-filter: blur(8px);
-    z-index: 20;
-  }
 
   .touch button {
     min-height: 52px;
